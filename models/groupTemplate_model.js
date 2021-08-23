@@ -34,7 +34,8 @@ const dummiesSchema = new Schema(
 //****************************************************************** */
 const GroupTemplateSchema = new Schema({
     title:String,
-    dummies:[dummiesSchema],
+    templateType:String,
+    dummyFields:[dummiesSchema],
     groups:[groupsSchema],      
     recommendation:Boolean
 });

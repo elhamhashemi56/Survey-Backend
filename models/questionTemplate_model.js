@@ -23,7 +23,8 @@ const dummiesSchema = new Schema(
 //************************************************************** */
 const QuestionTemplateSchema = new Schema({
     title:String,
-    dummies:[dummiesSchema],
+    templateType:String,
+    dummyFields:[dummiesSchema],
     questions:[questionsSchema]
 });
 
