@@ -7,6 +7,7 @@ const path = require("path");
 /////////////////////////////////////////////////////////////////
  const userRouter = require("./routes/user_route");
  const templateRouter=require("./routes/template_route")
+ const surveyRouter=require("./routes/survey_route")
 
  
 
@@ -33,6 +34,7 @@ app.use(corsHeader);
 //Routes
 app.use("/user", userRouter);
 app.use("/template", templateRouter);
+app.use("/survey", surveyRouter);
 
 
 

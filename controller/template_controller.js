@@ -2,37 +2,6 @@ const QuestionTemplate=require('../models/questionTemplate_model')
 const GroupTemplate=require('../models/groupTemplate_model')
 
 
-// req.body={
-
-//       "templateType":"TEMPLATE_QUESTION",
-//       "title": "Question Template",
-
-//       "dummyFields": [
-//         {
-//           "dummyLable": "Teacher : ",
-//           "dummyType": "text",
-//           "dummyKey": "teacher"
-//         },
-//         {
-//           "dummyLable": "Klass : ",
-//           "dummyType": "text",
-//           "dummyKey": "klass"
-//         },
-//       ],
-      
-//       "questions": [
-//             {
-//               "questionText": "q1",
-//               "hasAnswer": true
-//             },
-//             {
-//               "questionText": "q2",
-//               "hasComment": true
-//             }
-//           ]
-         
-//     }
-
     const template_PostController = async (req, res, next)=>{
       console.log('templateType',req.body.templateType); 
       const templateType=req.body.templateType
@@ -62,48 +31,27 @@ const GroupTemplate=require('../models/groupTemplate_model')
 //******************************************************* */
 
 const template_GetController = async (req, res, next)=>{
-  try{
-    
-      const templateType=req.body.templateType
-       if (templateType === 'TEMPLATE_QUESTION') {
-        let templateTypeQuestion = await QuestionTemplate.find();
-        res.status(200).send(templateTypeQuestion)
-       }else if(templateType === 'TEMPLATE_GROUP'){
-        let templateTypeGroup = await GroupTemplate.find();
-        res.status(200).send(templateTypeGroup)
-       }
-  }catch(error){
-      res.status(500).send(error)
+ 
+  try {
+    const { templateType } = req.params;
+    if (templateType === 'TEMPLATE_QUESTION') {
+      console.log('im if');
+      let templateTypeQuestion = await QuestionTemplate.find();
+      res.status(200).send(templateTypeQuestion)
+    } else if (templateType === 'TEMPLATE_GROUP') {
+      let templateTypeGroup = await GroupTemplate.find();
+      res.status(200).send(templateTypeGroup)
+    }
+  } catch (error) {
+    res.status(500).send(error)
   }
-}
-//******************************************************* */
 
-const templateType_GetController = async (req, res, next)=>{
-  try{ 
-      const {templateType} = req.params;
-     
-      let templateTypeGroup = await GroupTemplate.find({templateType:templateType});
-      console.log('test',templateTypeGroup);
-      if(templateTypeGroup){
-        console.log('im if');
-        res.status(200).send(templateTypeGroup)
-      }else{
-        console.log('im else');
-        let templateTypeQuestion = await QuestionTemplate.find({templateType:templateType});
-        res.status(200).send(templateTypeQuestion)
-      }
-      
-
-  }catch(error){
-      res.status(500).send(error)
-  }
 }
 
+module.exports={template_PostController,template_GetController}
 
 
-  
-module.exports={template_PostController,template_GetController,templateType_GetController}
-
+ 
 
 //******************************************************* */
 
@@ -156,6 +104,35 @@ module.exports={template_PostController,template_GetController,templateType_GetC
     //   ]
     // }   
 
+//*************************************************************************+ */
+    // req.body={
 
+    //       "templateType":"TEMPLATE_QUESTION",
+    //       "title": "Question Template",
 
-   
+    //       "dummyFields": [
+    //         {
+    //           "dummyLable": "Teacher : ",
+    //           "dummyType": "text",
+    //           "dummyKey": "teacher"
+    //         },
+    //         {
+    //           "dummyLable": "Klass : ",
+    //           "dummyType": "text",
+    //           "dummyKey": "klass"
+    //         },
+    //       ],
+      
+    //       "questions": [
+    //             {
+    //               "questionText": "q1",
+    //               "hasAnswer": true
+    //             },
+    //             {
+    //               "questionText": "q2",
+    //               "hasComment": true
+    //             }
+    //           ]
+          
+    //     }
+

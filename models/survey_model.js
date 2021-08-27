@@ -6,17 +6,17 @@ const surveySchema = new Schema(
     {
         groupTemplate:{
             type: Schema.Types.ObjectId,
-            ref:'groupTemplate'
+            ref:'groupTemplate_model'
          },
 
         questionTemplate:{
          type: Schema.Types.ObjectId,
-         ref:'questionTemplate'
+         ref:'questionTemplate_model'
          },
 
          templateType:{
              type:String,
-             enum:['group','single']
+             enum:['TEMPLATE_QUESTION','TEMPLATE_GROUP']
          },
 
         dummies:{}
