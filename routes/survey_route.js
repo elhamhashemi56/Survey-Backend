@@ -6,12 +6,12 @@ const { survey_PostController,survey_GetController }=require('../controller/surv
 
 router
     .route('/')
-    //.post(survey_PostController)
+    .post(survey_PostController)
     .get(survey_GetController)
     
-router
-     .route('/:templateType')
-     .post(survey_PostController)
+// router
+//      .route('/:templateType')
+//      .post(survey_PostController)
 
 
 

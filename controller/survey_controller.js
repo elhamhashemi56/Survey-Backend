@@ -47,38 +47,37 @@ const QuestionTemplate=require('../models/questionTemplate_model')
 
 const survey_PostController=async (req,res,next)=>{
     
-    //   const newSurvey = new Survey({
+      const newSurvey = new Survey({
         
-    //     surveyTitle: req.body.surveyTitle,
-    //     surveys: req.body.surveys,
-    //     id:req.body.surveys.templateType
+        surveyTitle: req.body.surveyTitle,
+        surveys: req.body.surveys,
         
-    //   })
-    //   const result = await newSurvey.save()
-    //   res.send(result)
+      })
+      const result = await newSurvey.save()
+      res.send(result)
 
-    try {
+    // try {
         
-             const { templateType } = req.params;
-            let testId =await QuestionTemplate.find({_id:templateType })
-            console.log('testId',testId);
-            let newSurvey =await Survey.create({
-                surveyTitle: req.body.surveyTitle,
-                surveys: req.body.surveys,
-                surveys:{
-                    questionTemplate:testId._id
-                 }
-                // questionTemplate: testId._id
+    //          const { templateType } = req.params;
+    //         let testId =await QuestionTemplate.find({_id:templateType })
+    //         console.log('testId',testId);
+    //         let newSurvey =await Survey.create({
+    //             surveyTitle: req.body.surveyTitle,
+    //             surveys: req.body.surveys,
+    //             surveys:{
+    //                 questionTemplate:testId[0]._id
+    //              }
+    //             // questionTemplate: testId._id
                 
-            })
-           res.send(newSurvey)
+    //         })
+    //        res.send(newSurvey)
 
       
        
-    }catch(error){
-        res.status(500).send(error)
+    // }catch(error){
+    //     res.status(500).send(error)
 
-    }
+    // }
       
 
 }
