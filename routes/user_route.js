@@ -1,15 +1,18 @@
 const express = require('express');
 const router = express.Router();
+const admin=require('../middleware/admin')
 
-const { userEinloggen,userPostController }=require('../controller/user_controller')
+const { userLogin,userPostController }=require('../controller/user_controller')
 
 
 router
     .route('/')
-    .post(userPostController)
+    .post(admin,userPostController)
+    
     
 router.route('/login')
-        .post(userEinloggen)
+        .post(userLogin)
+
 
 
 

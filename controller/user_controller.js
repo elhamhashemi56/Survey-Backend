@@ -6,57 +6,58 @@ const jwt = require('jsonwebtoken')
 //POST ************************************
 const userPostController = async (req, res, next) => {
     try {
-        const neueDaten = req.body
+        const newUser = req.body
         // const errors = validationResult(req)
         // if (!errors.isEmpty()) {
         //     return res.status(422).json({
-        //         fehlerBeiValidierung: errors.array()
+        //         validationError: errors.array()
         //     })
         // }
-
-        let schonVorhandenUser = await User.find({ email: neueDaten.email })
-        if (schonVorhandenUser.length >= 1) {
-            return res.status(409).send('Es gib schon einen Nutzer mit dieser Email')
+        let userAlready = await User.find({ email: newUser.email })
+        if (userAlready.length >= 1) {
+            return res.status(409).send('A user with this email adress already exists')
         }
-
-        let passwortGehashed = await bcrypt.hash(neueDaten.password, 10)
-        let erstelleNutzer = await User.create({ ...neueDaten, password: passwortGehashed })
-        res.status(201).send(erstelleNutzer);
-
-    } catch (fehler) {
-        next(fehler)
+        let passwordGehashed = await bcrypt.hash(newUser.password, 10)
+        let createUser = await User.create({ ...newUser, password: passwordGehashed })
+        res.status(201).send(createUser);
+    } catch (error) {
+        next(error)
     }
 }
 
 
 // Login ***********************************
 
-const userEinloggen = async (req, res, next) => {
-    let nutzer = req.body
-    let mailklein = nutzer.email
+const userLogin = async (req, res, next) => {
+    let user = req.body
+    let mailSmall = user.email
     try {
-        let userVonDatenbank = await User.findOne({ email: mailklein })
-        if (userVonDatenbank === null) {
+        let userfromDatabase = await User.findOne({ email: mailSmall })
+        if (userfromDatabase === null) {
             return res.status(401).send('You are not registered. Pls sign up')
         }
-        let vergleichVonPasswort = await bcrypt.compare(nutzer.password, userVonDatenbank.password)
-        if (vergleichVonPasswort) {
+        let comparePassword = await bcrypt.compare(user.password, userfromDatabase.password)
+        if (comparePassword) {
             let token = jwt.sign({
-                email: userVonDatenbank.email,
-                userId: userVonDatenbank._id,
-                name: userVonDatenbank.name
+                email: userfromDatabase.email,
+                userId: userfromDatabase._id,
+                name: userfromDatabase.name
             }, process.env.JWT, { expiresIn: '3h' });
             res.status(200).json({
-                nachricht: 'You are logged in',
+                message: 'You are logged in',
                 token: token,
-                name: userVonDatenbank.name
+                name: userfromDatabase.name
             })
         } else {
-            res.status(401).send('Passwort ist ungültig.')
+            res.status(401).send('Password is not valid.')
         }
     } catch (error) {
-        res.status(401).send('Du konntest nicht eingeloggt werden. error von catch' + error);
+        res.status(401).send('You couldn`t be logged in. error from catch' + error);
     }
 }
+ 
 
-module.exports = {  userEinloggen,userPostController }
+
+
+
+module.exports = {  userLogin,userPostController }

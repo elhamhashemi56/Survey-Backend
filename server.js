@@ -46,7 +46,7 @@ app.get('*',(req,res,next)=>{
     fehler.statusCode=404
     next(fehler)
 })
-// usere Fehler middleware:
+// unsere Fehler middleware:
 app.use((error, req,res,next) => {
     // status im header setzen:
     res.status(error.statusCode)
