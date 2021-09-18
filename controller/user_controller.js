@@ -1,11 +1,14 @@
 const User = require("../models/user_model");
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+//const { validationResult } = require('express-validator')
 
 
 //POST ************************************
 const userPostController = async (req, res, next) => {
+   
     try {
+       
         const newUser = req.body
         // const errors = validationResult(req)
         // if (!errors.isEmpty()) {
@@ -21,7 +24,7 @@ const userPostController = async (req, res, next) => {
         let createUser = await User.create({ ...newUser, password: passwordGehashed })
         res.status(201).send(createUser);
     } catch (error) {
-        next(error)
+        res.status(400).send(error);
     }
 }
 

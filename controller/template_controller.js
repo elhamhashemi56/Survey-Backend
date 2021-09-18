@@ -1,7 +1,31 @@
 const QuestionTemplate=require('../models/questionTemplate_model')
 const GroupTemplate=require('../models/groupTemplate_model')
+const {check} = require('express-validator');
 
+// const validTemplate =[
+//   check('title')
+//   .not().isEmpty().withMessage('name can not be empty')
+//   .isLength({min:2}).withMessage('title needs to have at least two characters')
+//   .trim()
+//   .escape(),
+//   check('dummyLable')
+//   .not().isEmpty().withMessage('pls enter dummy lable')
+//   .trim()
+//   .escape(),
+//   check('dummyType')
+//   .not().isEmpty().withMessage('pls enter dummy type')
+//   .trim()
+//   .escape(),
+//   check('dummyKey')
+//   .not().isEmpty().withMessage('pls enter dummy key')
+//   .trim()
+//   .escape(),
+//   check('questionText')
+//   .not().isEmpty().withMessage('pls enter question Text')
+//   .trim()
+//   .escape(),
 
+// ]
     const template_PostController = async (req, res, next)=>{
       console.log('templateType',req.body.templateType); 
       const templateType=req.body.templateType
