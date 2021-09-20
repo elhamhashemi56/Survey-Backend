@@ -51,10 +51,12 @@ const survey_PostController=async (req,res,next)=>{
         
         surveyTitle: req.body.surveyTitle,
         surveys: req.body.surveys,
+        expireTime:req.body.expireTime
         
       })
       const result = await newSurvey.save()
-      res.send(result)
+      // res.send(result)
+      res.send({...result,link:"http://localhost:5000/"+result._id})
 
     // try {
         

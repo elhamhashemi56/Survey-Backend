@@ -28,8 +28,12 @@ const surveySchema = new Schema(
 const SurveyGroupSchema = new Schema({
     surveyTitle:String,
     surveys:[surveySchema],
+    expireTime:{
+        type:Number,
+        enum:[24,36,48]
+    }
    
    
-});
+},{timestamps:{createdAt:true}});
 
 module.exports = mongoose.model("Survey", SurveyGroupSchema);
