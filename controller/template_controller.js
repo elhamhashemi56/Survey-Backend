@@ -29,7 +29,7 @@ const {check} = require('express-validator');
     const template_PostController = async (req, res, next)=>{
       console.log('templateType',req.body.templateType); 
       const templateType=req.body.templateType
-      if (templateType === 'TEMPLATE_QUESTION') {
+      if (templateType === 'TEMPLATE_QUESTION'  ) {
         const newQuestionTemplate = new QuestionTemplate({
           templateType:templateType,
           title: req.body.title,
