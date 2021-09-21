@@ -48,8 +48,8 @@ const validSurvey = [
     check('surveyTitle')
     .not().isEmpty().withMessage('title can not be empty').trim().escape(),
 
-    check('surveys').isArray(),
-    check('surveys.*.dummies[dummyKey]').not().isEmpty().withMessage('dummy key can not be empty'),
+    // check('surveys').isArray(),
+    // check('surveys.*.dummies[dummyKey]').not().isEmpty().withMessage('dummy key can not be empty'),
 
 ]
 
