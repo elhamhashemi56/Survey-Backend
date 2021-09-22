@@ -13,7 +13,7 @@ const {check,oneOf} = require('express-validator');
 
 //          templateType:{
 //              type:String,
-//              enum:['TEMPLATE_QUESTION','TEMPLATE_GROUP']
+//              :['TEMPLATE_QUESTION','TEMPLATE_GROUP']
 //         },
 
 //         dummies:{}
@@ -32,24 +32,23 @@ const validSurvey = [
     
     oneOf([
         [
-            check('surveys').isArray(),
-            check('surveys.*.templateType.enum').equals('TEMPLATE_GROUP'),
-            check('surveys.*.questionTemplate.type').not().isEmpty().withMessage('please enter a questionTemplate'),
+            check('surveys').isArray().not().isEmpty(),
+            check('surveys.*.templateType').equals('TEMPLATE_QUESTION'),
+            check('surveys.*.questionTemplate').not().isEmpty(),
             
         ],
         [   
             
-            check('surveys').isArray(),
-            check('surveys.*.templateType.enum').equals('TEMPLATE_QUESTION'),
-            check("surveys.*.groupTemplate.type").not().isEmpty().withMessage('please enter a groupTemplate'),
+            check('surveys').isArray().not().isEmpty(),
+            check('surveys.*.templateType').equals('TEMPLATE_GROUP'),
+            check("surveys.*.groupTemplate").not().isEmpty(),
         ]
     ], "Please Fill Out All Fields"),
 
     check('surveyTitle')
     .not().isEmpty().withMessage('title can not be empty').trim().escape(),
 
-    // check('surveys').isArray(),
-    // check('surveys.*.dummies[dummyKey]').not().isEmpty().withMessage('dummy key can not be empty'),
+
 
 ]
 

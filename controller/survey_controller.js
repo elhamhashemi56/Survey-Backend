@@ -56,7 +56,7 @@ const survey_PostController=async (req,res,next)=>{
       })
       const result = await newSurvey.save()
       // res.send(result)
-      res.send({...result,link:"http://localhost:5000/"+result._id})
+      res.status(200).send({...result,link:"http://localhost:3000/"+result._id})
 
     // try {
         
