@@ -41,9 +41,9 @@ app.use("/survey", surveyRouter);
 //dead End
 
 app.get('*',(req,res,next)=>{
-    let fehler=new Error('Diesen Pfad gibt es nicht')
-    fehler.statusCode=404
-    next(fehler)
+    let errorPath=new Error('this path does not exist')
+    errorPath.statusCode=404
+    next(errorPath)
 })
 // unsere Fehler middleware:
 app.use((error, req,res,next) => {
@@ -52,7 +52,7 @@ app.use((error, req,res,next) => {
     res.send({
       error: {
         status: error.statusCode,
-        mitteilung: error.message
+        message: error.message
       }
     })
   })

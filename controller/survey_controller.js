@@ -11,10 +11,10 @@ const QuestionTemplate=require('../models/questionTemplate_model')
 //         "templateType":"TEMPLATE_QUESTION",
 //         "questionTemplate": "612407c4f1c31d2040f9f34c",
 //         "dummies":{
-//                     "teacher":"Nathali",
-//                     "klass":"BW1",
-//                     "Fach":"web Develop",
-//                     "date":"01-01-2021"
+//                     "lehrer":"Nathalie",
+//                     "klasse":"BW1",
+//                     "fach":"Web Development",
+//                     "datum":"01-01-2021"
 
 //                     }
 //       },
@@ -22,10 +22,10 @@ const QuestionTemplate=require('../models/questionTemplate_model')
 //        "templateType":"TEMPLATE_QUESTION",
 //         "questionTemplate": "612407c4f1c31d2040f9f34c",
 //         "dummies":{
-//                     "teacher":"Andre",
-//                     "klass":"BW1",
-//                     "Fach":"web Develop",
-//                     "date":"01-01-2021"
+//                     "lehrer":"Andre",
+//                     "klasse":"BW1",
+//                     "fach":"Web Development",
+//                     "datum":"01-01-2021"
 
 //                     }
 //       },
@@ -35,7 +35,7 @@ const QuestionTemplate=require('../models/questionTemplate_model')
 //         "dummies":{
 //                     "ausbildung":"Andre",
 //                     "klasse":"BW1",
-//                     "einrichtung":"web Develop",
+//                     "einrichtung":"Web Development",
 //                     "datum":"01-01-2021"
 
 //                     }
@@ -54,8 +54,7 @@ const survey_PostController=async (req,res,next)=>{
         expireTime:req.body.expireTime
         
       })
-      const result = await newSurvey.save()
-      // res.send(result)
+      const result = await newSurvey.save();
       res.status(200).send({...result,link:"http://localhost:3000/"+result._id})
 
     // try {

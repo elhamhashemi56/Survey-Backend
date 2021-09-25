@@ -17,7 +17,5 @@ router
     .route('/:templateType')
     .get(template_GetController)
 
-//#################################################################################
-
 
 module.exports = router;

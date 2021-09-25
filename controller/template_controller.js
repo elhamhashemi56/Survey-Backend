@@ -29,7 +29,7 @@ const {check} = require('express-validator');
     const template_PostController = async (req, res, next)=>{
       console.log('templateType',req.body.templateType); 
       const templateType=req.body.templateType
-      if (templateType === 'TEMPLATE_QUESTION'  ) {
+      if (templateType === 'TEMPLATE_QUESTION') {
         const newQuestionTemplate = new QuestionTemplate({
           templateType:templateType,
           title: req.body.title,
@@ -59,7 +59,6 @@ const template_GetController = async (req, res, next)=>{
   try {
     const { templateType } = req.params;
     if (templateType === 'TEMPLATE_QUESTION') {
-      console.log('im if');
       let templateTypeQuestion = await QuestionTemplate.find();
       res.status(200).send(templateTypeQuestion)
     } else if (templateType === 'TEMPLATE_GROUP') {
@@ -141,9 +140,9 @@ module.exports={template_PostController,template_GetController}
     //           "dummyKey": "teacher"
     //         },
     //         {
-    //           "dummyLable": "Klass : ",
+    //           "dummyLable": "Klasse: ",
     //           "dummyType": "text",
-    //           "dummyKey": "klass"
+    //           "dummyKey": "klasse"
     //         },
     //       ],
       
