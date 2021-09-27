@@ -8,10 +8,10 @@ let optionen = { useNewUrlParser: true, useUnifiedTopology: true };
 const verbindeDB = () => {
     /** Verbindung für das Mongoose Modul herstellen mit connect */
     mongoose.connect(addressString, optionen).then( (mongooseModul) => {
-        console.log("mit SurveyDB verbunden");
+        console.log("connected to SurveyDB");
         //console.log("Bin mit der Datenbank verbunden", mongooseModul);
-    } ).catch( (fehler) => {
-        console.error("Fehler mit MongoDB: "+fehler);
+    } ).catch( (error) => {
+        console.error("error while trying to connect to MongoDB: "+error);
     } );
 }
 

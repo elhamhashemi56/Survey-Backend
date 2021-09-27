@@ -1,20 +1,18 @@
 
-const Survey=require('../models/survey_model')
-const QuestionTemplate=require('../models/questionTemplate_model')
-
+const Survey = require('../models/survey_model')
 
 // req.body={
-    
+
 //     "surveyTitle":"August Survey",
 //     "surveys":[
 //       {
 //         "templateType":"TEMPLATE_QUESTION",
 //         "questionTemplate": "612407c4f1c31d2040f9f34c",
 //         "dummies":{
-//                     "teacher":"Nathali",
-//                     "klass":"BW1",
-//                     "Fach":"web Develop",
-//                     "date":"01-01-2021"
+//                     "lehrer":"Nathalie",
+//                     "klasse":"BW1",
+//                     "fach":"Web Development",
+//                     "datum":"01-01-2021"
 
 //                     }
 //       },
@@ -22,10 +20,10 @@ const QuestionTemplate=require('../models/questionTemplate_model')
 //        "templateType":"TEMPLATE_QUESTION",
 //         "questionTemplate": "612407c4f1c31d2040f9f34c",
 //         "dummies":{
-//                     "teacher":"Andre",
-//                     "klass":"BW1",
-//                     "Fach":"web Develop",
-//                     "date":"01-01-2021"
+//                     "lehrer":"Andre",
+//                     "klasse":"BW1",
+//                     "fach":"Web Development",
+//                     "datum":"01-01-2021"
 
 //                     }
 //       },
@@ -35,67 +33,44 @@ const QuestionTemplate=require('../models/questionTemplate_model')
 //         "dummies":{
 //                     "ausbildung":"Andre",
 //                     "klasse":"BW1",
-//                     "einrichtung":"web Develop",
+//                     "einrichtung":"Web Development",
 //                     "datum":"01-01-2021"
 
 //                     }
 //       }
 //     ]
-   
+
 //   }
 
 
-const survey_PostController=async (req,res,next)=>{
-    
-      const newSurvey = new Survey({
-        
-        surveyTitle: req.body.surveyTitle,
-        surveys: req.body.surveys,
-        expireTime:req.body.expireTime
-        
-      })
-      const result = await newSurvey.save()
-      // res.send(result)
-      res.status(200).send({...result,link:"http://localhost:3000/"+result._id})
+const survey_PostController = async (req, res, next) => {
+  try {
+    const newSurvey = new Survey({
 
-    // try {
-        
-    //          const { templateType } = req.params;
-    //         let testId =await QuestionTemplate.find({_id:templateType })
-    //         console.log('testId',testId);
-    //         let newSurvey =await Survey.create({
-    //             surveyTitle: req.body.surveyTitle,
-    //             surveys: req.body.surveys,
-    //             surveys:{
-    //                 questionTemplate:testId[0]._id
-    //              }
-    //             // questionTemplate: testId._id
-                
-    //         })
-    //        res.send(newSurvey)
+      surveyTitle: req.body.surveyTitle,
+      surveys: req.body.surveys,
+      expireTime: req.body.expireTime
 
-      
-       
-    // }catch(error){
-    //     res.status(500).send(error)
-
-    // }
-      
-
+    })
+    const result = await newSurvey.save();
+    res.status(200).send({ ...result, link: "http://localhost:3000/" + result._id })
+  } catch (error) {
+    res.status(500).send(error)
+  }
 }
 
 //************************************************************ */
 
-const survey_GetController=async (req,res,next)=>{
-    
-    try {
-       
-          let newSurvey = await Survey.find();
-          res.status(200).send(newSurvey)
-       
-      } catch (error) {
-        res.status(500).send(error)
-      }
+const survey_GetController = async (req, res, next) => {
+
+  try {
+
+    let newSurvey = await Survey.find();
+    res.status(200).send(newSurvey)
+
+  } catch (error) {
+    res.status(500).send(error)
+  }
 }
 
-module.exports={survey_PostController,survey_GetController}
+module.exports = { survey_PostController, survey_GetController }
