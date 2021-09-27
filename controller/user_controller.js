@@ -1,7 +1,6 @@
 const User = require("../models/user_model");
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-//const { validationResult } = require('express-validator')
 
 
 //POST ************************************
@@ -10,12 +9,6 @@ const userPostController = async (req, res, next) => {
     try {
        
         const newUser = req.body
-        // const errors = validationResult(req)
-        // if (!errors.isEmpty()) {
-        //     return res.status(422).json({
-        //         validationError: errors.array()
-        //     })
-        // }
         let userAlready = await User.find({ email: newUser.email })
         if (userAlready.length >= 1) {
             return res.status(409).send('A user with this email adress already exists')

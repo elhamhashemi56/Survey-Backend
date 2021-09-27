@@ -11,10 +11,4 @@ router
     .post(validSurvey,valid,survey_PostController)
     .get(survey_GetController)
     
-// router
-//      .route('/:templateType')
-//      .post(survey_PostController)
-
-
-
 module.exports = router;
