@@ -45,15 +45,24 @@ const Survey = require('../models/survey_model')
 
 const survey_PostController = async (req, res, next) => {
   try {
-    const newSurvey = new Survey({
 
+    //################### Survey validation
+    for(const survey of req.body.surveys){
+      if(survey.templateType === 'TEMPLATE_QUESTION' && !survey.questionTemplate)
+          return  res.status(400).send('template not selected.')
+      if(survey.templateType === 'TEMPLATE_GROUP' && !survey.groupTemplate)
+          return  res.status(400).send('template not selected.') 
+    }
+    //################### Survey validation
+
+    const newSurvey = new Survey({
       surveyTitle: req.body.surveyTitle,
       surveys: req.body.surveys,
       expireTime: req.body.expireTime
 
     })
     const result = await newSurvey.save();
-    res.status(200).send({ ...result, link: "http://localhost:3000/" + result._id })
+    res.status(200).send({ ...result, link: "http://localhost:3000/vote/" + result._id })
   } catch (error) {
     res.status(500).send(error)
   }
@@ -73,4 +82,41 @@ const survey_GetController = async (req, res, next) => {
   }
 }
 
-module.exports = { survey_PostController, survey_GetController }
+//************************************************************ */
+const getSurveyById= async(req,res)=>{
+
+  const id=req.params.surveyId
+  try {
+    const surveyWithId = await Survey.findById(id).populate('surveys.questionTemplate')
+    res.status(200).send(surveyWithId)
+  } catch (error) {
+    res.status(400).send(error)
+  }
+        
+}
+
+module.exports = { survey_PostController, survey_GetController,getSurveyById }
+
+
+
+
+
+
+
+
+
+
+
+// const id=req.params.surveyId;
+    // try{
+    //   const survey = await Survey.findById(id)
+    //   res.status(200).send(survey)
+
+    // }catch(error){
+    //   res.status(400).send(error)
+    // }
+
+    // const survey = await Survey.findById(req.params.surveyId).populate("surveys.questionTemplate")
+    // if (survey)
+    //     return res.send(survey)
+    // else res.status(404).send()

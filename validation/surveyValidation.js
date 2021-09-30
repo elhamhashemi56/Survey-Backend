@@ -1,4 +1,4 @@
-const {check,oneOf} = require('express-validator');
+const {check, oneOf } = require('express-validator');
 // const surveySchema = new Schema(
 //     {
 //         groupTemplate:{
@@ -30,21 +30,22 @@ const {check,oneOf} = require('express-validator');
 
 const validSurvey = [
     
-    oneOf([
-        [
-            check('surveys').isArray().not().isEmpty(),
-            check('surveys.*.templateType').equals('TEMPLATE_QUESTION'),
-            check('surveys.*.questionTemplate').not().isEmpty(),
+    // oneOf([
+    //     [
+    //         check('surveys').isArray().not().isEmpty(),
+    //         check('surveys.*.templateType').equals('TEMPLATE_QUESTION'),
+    //         check('surveys.*.questionTemplate').not().isEmpty(),
             
-        ],
-        [   
+    //     ],
+    //     [   
             
-            check('surveys').isArray().not().isEmpty(),
-            check('surveys.*.templateType').equals('TEMPLATE_GROUP'),
-            check("surveys.*.groupTemplate").not().isEmpty(),
-        ]
-    ], "Please Fill Out All Fields"),
-
+    //         check('surveys').isArray().not().isEmpty(),
+    //         check('surveys.*.templateType').equals('TEMPLATE_GROUP'),
+    //         check("surveys.*.groupTemplate").not().isEmpty(),
+    //     ]
+    // ], "Please Fill Out All Fields"),
+    
+    check('surveys').isArray().not().isEmpty(),
     check('surveyTitle')
     .not().isEmpty().withMessage('title can not be empty').trim().escape(),
 

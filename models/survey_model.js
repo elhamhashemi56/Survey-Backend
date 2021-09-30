@@ -6,12 +6,12 @@ const surveySchema = new Schema(
     {
         groupTemplate:{
             type: Schema.Types.ObjectId,
-            ref:'groupTemplate_model'
+            ref:'GroupTemplate'
         },
 
         questionTemplate:{
          type: Schema.Types.ObjectId,
-         ref:'questionTemplate_model'
+         ref:'QuestionTemplate'
         },
 
          templateType:{
