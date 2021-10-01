@@ -1,6 +1,6 @@
 
 const Survey = require('../models/survey_model')
-
+const moment =require("moment");
 // req.body={
 
 //     "surveyTitle":"August Survey",
@@ -87,8 +87,38 @@ const getSurveyById= async(req,res)=>{
 
   const id=req.params.surveyId
   try {
-    const surveyWithId = await Survey.findById(id).populate('surveys.questionTemplate')
-    res.status(200).send(surveyWithId)
+    const surveyWithId = await Survey.findById(id).populate('surveys.questionTemplate').populate('surveys.groupTemplate')
+    //################### Expire Time
+    const now = moment(new Date()); //todays date
+    const end = moment(surveyWithId.createdAt); // another date
+    const duration = moment.duration(now.diff(end));
+    const hours = duration.asHours();
+    console.log('hours',hours);
+    if(hours>surveyWithId.expireTime)
+        return res.status(400).send("expired")
+     //################### Expire Time
+
+    console.log('surveyWithId',surveyWithId);
+    const newList = surveyWithId.surveys.map(item => {
+      if (item.templateType === 'TEMPLATE_QUESTION') {
+        return {
+          templateType:item.templateType,
+          dummies: item.dummies,
+          questions: item.questionTemplate.questions
+        }
+
+      } else if (item.templateType === 'TEMPLATE_GROUP') {
+        return {
+          templateType:item.templateType,
+          dummies: item.dummies,
+          groups: item.groupTemplate.groups,
+          recommendation: item.groupTemplate.recommendation,
+         
+        }
+      }
+
+    })
+    res.status(200).send({...surveyWithId._doc,surveys:newList})
   } catch (error) {
     res.status(400).send(error)
   }
@@ -96,27 +126,3 @@ const getSurveyById= async(req,res)=>{
 }
 
 module.exports = { survey_PostController, survey_GetController,getSurveyById }
-
-
-
-
-
-
-
-
-
-
-
-// const id=req.params.surveyId;
-    // try{
-    //   const survey = await Survey.findById(id)
-    //   res.status(200).send(survey)
-
-    // }catch(error){
-    //   res.status(400).send(error)
-    // }
-
-    // const survey = await Survey.findById(req.params.surveyId).populate("surveys.questionTemplate")
-    // if (survey)
-    //     return res.send(survey)
-    // else res.status(404).send()

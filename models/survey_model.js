@@ -33,6 +33,6 @@ const SurveyGroupSchema = new Schema({
         enum:[24,36,48]
     }
    
-},{timestamps:{createdAt:true,updatedAt :true}});
+},{timestamps:{createdAt:true,updatedAt:false}});
 
 module.exports = mongoose.model("Survey", SurveyGroupSchema);
