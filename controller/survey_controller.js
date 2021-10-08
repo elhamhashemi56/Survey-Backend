@@ -125,4 +125,19 @@ const getSurveyById= async(req,res)=>{
         
 }
 
-module.exports = { survey_PostController, survey_GetController,getSurveyById }
+//************************************************************ */
+
+const deleteSurvey = async (req, res) => {
+  const id = req.params.surveyId
+  try {
+    const surveyDeleted = await Survey.findByIdAndDelete(id)
+    res.status(200).send(surveyDeleted)
+
+  } catch (e) {
+    res.status(500).send(e)
+  }
+
+}
+
+
+module.exports = { survey_PostController, survey_GetController,getSurveyById,deleteSurvey }

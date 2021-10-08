@@ -3,7 +3,7 @@ const router = express.Router();
 const valid = require("../middleware/valid")
 const validSurvey = require("../validation/surveyValidation")
 
-const { survey_PostController,survey_GetController,getSurveyById }=require('../controller/survey_controller')
+const { survey_PostController,survey_GetController,getSurveyById,deleteSurvey }=require('../controller/survey_controller')
 
 
 router
@@ -14,5 +14,9 @@ router
 router
     .route("/vote/:surveyId")
     .get(getSurveyById)
+
+router
+    .route("/:surveyId")
+    .delete(deleteSurvey)
     
 module.exports = router;

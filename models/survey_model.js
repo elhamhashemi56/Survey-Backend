@@ -30,7 +30,7 @@ const SurveyGroupSchema = new Schema({
     surveys:[surveySchema],
     expireTime:{
         type:Number,
-        enum:[24,36,48]
+        enum:[1,24,36,48]
     }
    
 },{timestamps:{createdAt:true,updatedAt:false}});
