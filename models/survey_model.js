@@ -26,11 +26,11 @@ const surveySchema = new Schema(
 
 
 const SurveyGroupSchema = new Schema({
-    surveyTitle:String,
+    
     surveys:[surveySchema],
     expireTime:{
         type:Number,
-        enum:[1,24,36,48]
+        enum:[24,48,72,96,120,144,168]
     }
    
 },{timestamps:{createdAt:true,updatedAt:false}});
