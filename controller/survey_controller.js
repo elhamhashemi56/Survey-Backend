@@ -56,7 +56,7 @@ const survey_PostController = async (req, res, next) => {
     //################### Survey validation
 
     const newSurvey = new Survey({
-      surveyTitle: req.body.surveyTitle,
+      // surveyTitle: req.body.surveyTitle,
       surveys: req.body.surveys,
       expireTime: req.body.expireTime
 
