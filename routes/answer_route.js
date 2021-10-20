@@ -3,13 +3,15 @@ const router = express.Router();
 
 
 
-const { answer_PostController }=require('../controller/answer_controller')
+const {answer_postController }=require('../controller/answer_controller')
 
 
 
 router
-    .route("/vote/:surveyId")
-    .post(answer_PostController)
+    .route("/")
+    .post(answer_postController)
 
 
 module.exports = router;
+
+

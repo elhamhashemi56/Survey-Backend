@@ -130,6 +130,10 @@ const getSurveyById= async(req,res)=>{
 const deleteSurvey = async (req, res) => {
   const id = req.params.surveyId
   try {
+    // const test=await Survey.find( {"surveys.questionTemplate._id": id} )
+    // console.log("test",test);
+     //const test=await Survey.findById(id)
+    // console.log("test",test);
     const surveyDeleted = await Survey.findByIdAndDelete(id)
     res.status(200).send(surveyDeleted)
 
