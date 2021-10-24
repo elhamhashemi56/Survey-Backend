@@ -20,7 +20,26 @@ const answer_postController=async (req,res,next)=>{
 
 }
 
-module.exports={answer_postController} 
+
+const deleteSurvey = async (req, res) => {
+    const id = req.params.surveyId
+   
+    try {
+       
+        const test=await Survey.findByIdAndDelete(id)
+        console.log("test",test);
+       
+        await test.save();
+        res.status(200).send()
+    } catch (e) {
+        console.log(e)
+        res.status(500).send(e)
+    }
+
+}
+
+
+module.exports={answer_postController,deleteSurvey} 
 
 // const answer = {
 //   survey: "6166a7db9f6887478f5a83a0",
