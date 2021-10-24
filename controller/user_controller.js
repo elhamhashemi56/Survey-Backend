@@ -37,12 +37,12 @@ const userLogin = async (req, res, next) => {
             let token = jwt.sign({
                 email: userfromDatabase.email,
                 userId: userfromDatabase._id,
-                name: userfromDatabase.name
+                // name: userfromDatabase.name
             }, process.env.JWT, { expiresIn: '3h' });
             res.status(200).json({
                 message: 'You are logged in',
                 token: token,
-                name: userfromDatabase.name
+                // name: userfromDatabase.name
             })
         } else {
             res.status(401).send('Password is not valid.')

@@ -128,18 +128,22 @@ const getSurveyById= async(req,res)=>{
 //************************************************************ */
 
 const deleteSurvey = async (req, res) => {
-  const id = req.params.surveyId
-  try {
-    // const test=await Survey.find( {"surveys.questionTemplate._id": id} )
-    // console.log("test",test);
-     //const test=await Survey.findById(id)
-    // console.log("test",test);
-    const surveyDeleted = await Survey.findByIdAndDelete(id)
-    res.status(200).send(surveyDeleted)
+  const survey_id = req.params.surveyId
+  const template_id = req.params.templateId
+    try {
+       
+        const survey = await Survey.findById(survey_id)
+        survey.surveys = survey.surveys.filter(item => {
+            return item._id.toString() !== template_id;
+        });
+        console.log('survey.surveys',survey.surveys);
+        await survey.save();
+        res.status(200).send(survey)
+    } catch (e) {
+        console.log(e)
+        res.status(500).send(e)
+    }
 
-  } catch (e) {
-    res.status(500).send(e)
-  }
 
 }
 
