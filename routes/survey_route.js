@@ -16,7 +16,7 @@ router
     .get(getSurveyById)
 
 router
-    .route("/:surveyId")
+    .route("/:surveyId/:templateId")
     .delete(deleteSurvey)
     
 module.exports = router;
